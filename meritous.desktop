@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Meritous
+Comment=Action-adventure dungeon crawl game
+Comment[pl]=Przygodowa gra typu roguelike
+Icon=meritous.png
+Exec=meritous
+Terminal=false
+Type=Application
+Categories=Game;RolePlaying;
+# vi: encoding=utf-8
+
