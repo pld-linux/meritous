@@ -10,6 +10,7 @@ License:	GPL v3+
 Group:		X11/Applications/Games
 Source0:	http://www.asceai.net/files/%{name}_%{src_ver}_src.tar.bz2
 # Source0-md5:	88e439c773ee0e334fd2b256100983b8
+Source1:	%{name}.desktop
 URL:		http://www.asceai.net/meritous/
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
@@ -27,7 +28,7 @@ Meritious jest przygodową grą typu roguelike.
 %setup -q -n %{name}_%{src_ver}_src
 %{__sed} -i -e 's@gcc@\$(CC)@g' Makefile
 
-# chane path to data files (manual installation)
+# change path to data files (manual installation)
 find . -name '*.c' -exec %{__sed} -i -e 's@dat/@%{_datadir}/%{name}/dat/@g' {} \;
 
 %build
@@ -38,9 +39,11 @@ find . -name '*.c' -exec %{__sed} -i -e 's@dat/@%{_datadir}/%{name}/dat/@g' {} \
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name},%{_desktopdir},%{_pixmapsdir}}
 
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{name} $RPM_BUILD_ROOT%{_bindir}
+install dat/i/icon.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
 cp -r dat $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %clean
@@ -51,3 +54,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc dat/d/helpfile.txt readme.txt
 %attr(755,root,root) %{_bindir}/%{name}
 %{_datadir}/%{name}
+%{_desktopdir}/%{name}.desktop
+%{_pixmapsdir}/%{name}.png
